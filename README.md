@@ -1,97 +1,122 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+ToDoApp - Teste Prático de Desenvolvedor React Native
 
-# Getting Started
+Aplicativo desenvolvido como solução para o desafio técnico de desenvolvedor front-end mobile. Trata-se de uma aplicação completa de lista de tarefas, com sistema de autenticação simulado, gerenciamento de tarefas com prioridade e data, dark mode, etc.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+🧩 Funcionalidades
 
-## Step 1: Start Metro
+Login e Cadastro com validação de campos
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+Navegação segura entre telas com React Navigation
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Listagem de tarefas
 
-```sh
-# Using npm
-npm start
+Criação, edição e exclusão de tarefas
 
-# OR using Yarn
-yarn start
-```
+Marcação de tarefas como concluídas
 
-## Step 2: Build and run your app
+Priorização visual: Alta 🔴, Média 🟠, Baixa 🟢
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Seleção de data de entrega via date picker
 
-### Android
+Modo escuro ativável manualmente 🌙
 
-```sh
-# Using npm
-npm run android
+Contagem por filtro: Todas, Pendentes, Concluídas
 
-# OR using Yarn
-yarn android
-```
+⚙️ Tecnologias Utilizadas
 
-### iOS
+React Native - Base da aplicação
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+TypeScript - Tipagem estática em todo o projeto
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+Zustand - Gerenciamento de estado global (auth, tarefas, tema)
 
-```sh
-bundle install
-```
+React Navigation - Navegação entre telas
 
-Then, and every time you update your native dependencies, run:
+NativeWind - Tailwind CSS adaptado para React Native
 
-```sh
-bundle exec pod install
-```
+react-native-date-picker - Seleção de data nativa
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+react-native-svg + svg-transformer - Suporte a imagens SVG
 
-```sh
-# Using npm
-npm run ios
+🧠 Arquitetura
 
-# OR using Yarn
-yarn ios
-```
+src/
+├── components/      # Componentes reutilizáveis (Header, TaskInput, etc)
+├── screens/         # Telas: Login, Register, Home, EditTaskModal
+├── navigation/      # AppNavigator, MainAppStack
+├── store/           # Zustand stores: authStore, taskStore, themeStore
+├── types/           # Tipagens globais como Task
+├── utils/           # Funções auxiliares (ex: formatDate)
+assets/
+├── icons/           # Ícones em SVG (logo, calendário, etc)
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+🧪 Validações Implementadas
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Campos de login e cadastro obrigatórios
 
-## Step 3: Modify your app
+Botões desabilitados até que todos os campos estejam preenchidos
 
-Now that you have successfully run the app, let's make changes!
+Feedback visual com cor de fundo nos botões desabilitados
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+🌙 Dark Mode
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+Implementado com dark: do NativeWind
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Classe dark:bg-* e dark:text-* aplicadas em todos os elementos principais
 
-## Congratulations! :tada:
+Toggle entre light/dark salvo via Zustand
 
-You've successfully run and modified your React Native App. :partying_face:
+🔐 Autenticação (simulada)
 
-### Now what?
+Autenticação controlada por Zustand (authStore.ts)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Navegação entre Login, Register e MainApp baseada em isAuthenticated
 
-# Troubleshooting
+Estado persistente durante a sessão (pode ser extendido para AsyncStorage facilmente)
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+📦 Como rodar o projeto
 
-# Learn More
+yarn install
+cd ios && pod install && cd ..
+npx react-native start --reset-cache
+npx react-native run-ios # ou run-android
 
-To learn more about React Native, take a look at the following resources:
+📱 Gerar APK (Android)
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Gere o APK com:
+
+cd android
+./gradlew assembleRelease
+
+O arquivo será gerado em:
+
+android/app/build/outputs/apk/release/app-release.apk
+
+Transfira o APK para seu dispositivo ou emulador para testes.
+
+📝 Decisões Técnicas
+
+Zustand escolhido por ser leve, conciso e eficiente para estados globais simples
+
+NativeWind para uma abordagem Tailwind-like na estilização, garantindo consistência visual e suporte nativo ao tema escuro
+
+SVG como componente para controle dinâmico de tamanho e cor
+
+Formulários controlados via useState para manter a simplicidade
+
+🧠 Desafios encontrados
+
+Conflitos com fontes .ttf duplicadas (resolvido limpando Copy Bundle Resources)
+
+Incompatibilidades entre Metro bundler e svg-transformer (ajustado com o metro.config.js correto)
+
+Navegação condicional com Zustand exigiu uso inteligente de reatividade
+
+✅ Conclusão
+
+O projeto está alinhado com os critérios do teste prático, oferece uma interface moderna, responsiva e funcional, além de demonstrar domínio técnico com as principais tecnologias exigidas para a vaga.
+
+Feito com atenção a performance, usabilidade e organização. Pronto para produção e expansão.
+
+Feito com 💜 por Raphael Mardine
+
